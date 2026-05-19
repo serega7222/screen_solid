@@ -32,6 +32,7 @@ class Main_Screen_Model():
         """Сохраняет путь  в реестре 
         путь сохранения  HKEY_CURRENT_USER\SOFTWARE\MyApp """
         self.settings.setValue("save_path", path)
+        logger.info("Путь успешно сохранен в реестре HKEY_CURRENT_USER\SOFTWARE\MyApp")
         
     def _load_path(self)-> None:
         """Загружает сохраненный путь."""
@@ -42,13 +43,11 @@ class Main_Screen_Model():
         else:
             logger.info("Пути нет")
             return None    
-
-
-class Model():
-    """Отвечает за загрузку и сохранение данных"""
-    def __init__(self)-> None: 
-        self.settings = QSettings("MyApp", "Screenshotter")
         
+class HotKeyModel:
+    def __init__(self):
+        self.settings = QSettings("MyApp", "Screenshotter")
+
     def save_hot_key(self,key:str)-> None: 
         """Сохраняет горячие клавиши"""
         try:
@@ -68,7 +67,13 @@ class Model():
                 return config.default_hot_key
         except Exception as e :
             logger.error(f"Ошибка при загрузке горячих клавиш {e}") 
-            return None
+            return None        
+
+class Model():
+    """Отвечает за загрузку и сохранение данных"""
+    def __init__(self)-> None: 
+        self.settings = QSettings("MyApp", "Screenshotter")
+        
 
     def load_pen_size(self) -> int :
         """Загружает размер ручки для рисования если она есть ,если нет то загружает стандартный размер"""

@@ -16,8 +16,10 @@ class MainScreen(QMainWindow):
         self._connect_signals()
 
     def _connect_signals(self)-> None:
+
         self.signals.signal_folder_selected.connect(self._change_folder)
         self.signals.signal_load_folder.connect(self._change_folder)
+        
     def _load_win_setting(self)-> None:
         """Настройки главного окна (размер, название)"""
         self.setMinimumHeight(config.app_min_height)
@@ -41,7 +43,7 @@ class MainScreen(QMainWindow):
         self._label_hot_key = QLabel("Сделать скриншот")
         self._hot_key_button = QPushButton("ctrl+shift")
         self._hot_key_button.clicked.connect(self._click_hot_key_btn)
-        self._status_label = QLabel(" ")
+        self._status_label = QLabel("")
 
         #Первая строка
         _layout.addWidget(self._label_save, 0, 0)
@@ -66,11 +68,11 @@ class MainScreen(QMainWindow):
         self.signals.signal_click_search_btn.emit()
     
     def _click_hot_key_btn(self)-> None:
-        pass
+        self.signals.signal_click_hot_key_btn.emit()
     
     #слоты
     @Slot(str)
-    def _change_folder(self,folder)-> None:
+    def _change_folder(self,folder:str)-> None:
         """изменяет путь сохранения"""
         self._path.setText(folder)
 

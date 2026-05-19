@@ -7,8 +7,8 @@ from utils.signals import MainSignals
 from model.model import Main_Screen_Model
 #view 
 from view.main_screen import MainScreen
-#controllers
-from controllers.main_screen_control import OpenDialog
+#controllers MainScreen
+from controllers.main_screen_control import SearchBtn,HotKetBtn
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     #model
     main_model = Main_Screen_Model(main_signals)
     #control
-    main_control = OpenDialog(main_signals)
-
+    main_control_search_btn = SearchBtn(main_signals)
+    main_control_hot_key_btn = HotKetBtn(main_signals )
     
     sys.exit(app.exec())
